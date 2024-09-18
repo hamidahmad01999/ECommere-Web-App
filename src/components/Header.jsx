@@ -7,10 +7,12 @@ import { Link } from "react-router-dom";
 function Header() {
   return (
     <>
-      <header className='h-16  shadow-lg'>
+      <header className='h-16  shadow-xl bg-white'>
         <div className='h-full flex items-center justify-between lg:px-7 md:px-5'>
         <div className='lg:pl-5 md:pl-4 cursor-pointer basis-[10%]'>
+          <Link to={''}>
           <Logo width={70} h={50} />
+          </Link>
         </div>
         <div className='hidden md:flex  min-w-96 max-w-md  justify-center items-center border-black border-solid border-[1px] rounded-full'>
           <div className='w-full  text-lg pl-3 pr-1'>
