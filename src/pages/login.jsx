@@ -2,17 +2,35 @@ import React, { useState } from 'react'
 import { FaUser } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { FaRegEye } from "react-icons/fa";
+import { IoMdEyeOff } from "react-icons/io";
 
 function login() {
-    const [validPassword, setValidPassword]=useState("Password length minimum 8 character.");
+    const [loginValidate, setLoginValidate]=useState("");
+    const [passwordVisible, setPasswordVisible]=useState("false");
+    const [data, setData]=useState({
+        email:"",
+        password:""
+    })
 
-    const onPasswordChange=(e)=>{
-        const password = e.target.value;
-        if(password.length<8){
-            setValidPassword("Password length minimum 8 character.")
-        }else{
-            setValidPassword("")
+    const onChangeHandle=(e)=>{
+        const {name, value}=e.target;
+        setData((prev)=>{
+            return{
+                ...prev,
+                [name]:value
+            }
+        })
+    }
+    const onClickHandle=(e)=>{
+        e.preventDefault();
+        const {email, password}=data;
+        if(email==="" || password===""|| email.trim()===""){
+            setLoginValidate("Empty password or email not allowed");
+            setTimeout(() => {
+                setLoginValidate("");
+            }, 3000);
         }
+        console.log(email, " ",password);
     }
 
   return (
@@ -25,26 +43,35 @@ function login() {
                     </div>
                     <div className='flex flex-col mt-1' >
                         <label htmlFor="" className=''>Email</label>
-                        <input className='w-full  outline-none border border-black rounded-md text-lg pl-2 mt-1 md:py-1' type="text" placeholder='Enter your email...' />
+                        <input name='email' onChange={onChangeHandle} value={data.email} className='w-full  outline-none border border-black rounded-md text-lg pl-2 mt-1 md:py-1' type="text" placeholder='Enter your email...' />
                     </div>
                     <div className='flex flex-col mt-3 md:mt-4' >
                         <label htmlFor="" className=''>Password</label>
                         <div className='flex items-center border border-black rounded-md pr-2'>
-                        <input onChange={onPasswordChange} className='w-full outline-none  text-lg pl-2 md:py-1' type="password" placeholder='Enter your password...' />
-                        <FaRegEye />
-                        </div>
+                        <input name='password' value={data.password} onChange={onChangeHandle} className='w-full outline-none  text-lg pl-2 md:py-1' type={passwordVisible?'password':'text'} placeholder='Enter your password...' />
+                        <div className='text-lg flex' onClick={()=>{
+                            setPasswordVisible((prev)=>!prev)}}>
+                            {
+                                passwordVisible? <IoMdEyeOff />: <FaRegEye />
+                            }
                         
-                        <span className='text-[14px] text-purple-400'>{validPassword}</span>
+                        </div>
+                        </div>
+                        <div className=''>
                         <span className='text-blue-500 cursor-pointer float-right'>forgot password <Link to={'/forgot-password'}></Link></span>
+
+                        </div>
                     </div>
-                    <div className='mt-3 md:mt-5 '>
+                    <div className='mt-3 md:mt-4 '>
                         <button 
                             className='bg-blue-500 md:w-[50%] mx-auto block w-full text-sm md:text-lg rounded-xl py-1
                             md:py-[6px]
                             '
+                            onClick={onClickHandle}
                         >
                             Login
                         </button>
+                        <p className='text-center'>{loginValidate}</p>
                     </div>
                 </form>
                 <div className='mt-1 md:mt-2'>
