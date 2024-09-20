@@ -36,7 +36,7 @@ function Header() {
             ' to={'/login'} >Login</Link>
           </div>
           <div>
-          <Link className='rounded-full bg-blue-500 text-white hover:text-[16px] text-md md:text-lg border-1 border-black py-1 px-2 md:px-4 hover:bg-gray-700 duration-500 md:hover:text-[20px] hover:shadow-xl' to={'/signup'} >Sign Up</Link>
+          <Link className='rounded-full bg-blue-500 text-white hover:text-[16px] text-sm md:text-lg border-1 border-black py-1 px-2 md:px-4 hover:bg-gray-700 duration-500 md:hover:text-[20px] hover:shadow-xl' to={'/signup'} >Sign Up</Link>
           </div>
         </div>
         </div>
